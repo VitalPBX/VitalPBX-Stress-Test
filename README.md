@@ -1,6 +1,12 @@
-# VitalPBX-Stress-Test
 VitalPBX Stress Test
+=====
+For a long time many people have asked us the following:<br>
+What is the concurrent call capacity of VitalPBX?<br>
+We took on the task of conducting an investigation of how to perform a test of concurrent calls and we realized that the information was very poor and did not meet our expectations. So we decided to make a script to test the capacity of concurrent calls in VitalPBX depending on the hardware..<br>
 
+-----------------
+## Prerequisites
+To do this test it is necessary to have two VitalPBX installed, the location that is to which we will perform the tests and the remote that is to which we will connect. It should be noted that it is necessary that the remote VitalPBX server should have more capacity than the local one, because if it had less capacity it could not reach the maximum capacity of the local server.<br>
 
 ## Script
 Now copy and run the following script<br>
