@@ -1,7 +1,7 @@
 VitalPBX Stress Test
 =====
 For a long time many people have asked us the following:<br>
-What is the concurrent call capacity of VitalPBX?<br>
+What is the concurrent call capacity of VitalPBX or Asterisk?<br>
 We took on the task of conducting an investigation of how to perform a test of concurrent calls and we realized that the information was very poor and did not meet our expectations. So we decided to make a script to test the capacity of concurrent calls in VitalPBX depending on the hardware..<br>
 
 -----------------
