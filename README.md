@@ -6,26 +6,26 @@ VitalPBX Stress Test
 Now copy and run the following script<br>
 <pre>
 [root@vitalpbx1 ~]#  cd /
-[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/vitalpbx_/master/vital_ha.sh
-[root@vitalpbx1 ~]#  chmod +x vital_ha.sh
-[root@vitalpbx1 ~]#  ./vital_ha.sh
+[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test.sh
+[root@vitalpbx1 ~]#  chmod +x stress-test.sh
+[root@vitalpbx1 ~]#  ./stress-test.sh
 </pre>
-Set these values, remember the Floating IP Mask must be 2 digit format (SIDR) and the Disk is that you created in the step “Create Disk”:
+Set these values:
 <pre>
-IP Master.......... > <strong>192.168.30.10</strong>
-IP Slave........... > <strong>192.168.30.20</strong>
-Floating IP........ > <strong>192.168.30.30</strong>
-Floating IP Mask... > <strong>21</strong>
-Disk (sdax)........ > <strong>sda4</strong>
-hacluster password. > <strong>mypassword</strong>
+IP Local....................................... >  <strong>192.168.30.10</strong>	
+IP Remote...................................... >  <strong>192.168.30.20</strong>
+Protocol (1.-SIP, 2.-IAX)...................... >  <strong>1</strong>
+Codec (1.-None, 2.-G79, 3.- GSM)............... >  <strong>1</strong>
+Recording Calls (yes,no)....................... >  <strong>no</strong>
+Max CPU Load (Recommended 90%)................. >  <strong>90</strong>
+Calls Step (Recommended 5-20).................. >  <strong>10</strong>
+Seconds between each step (Recommended 5-30)... >  <strong>10</strong>
 
 Are you sure to continue with these settings? (yes,no) > <strong>yes</strong>
 
 Are you sure you want to continue connecting (yes/no)? <strong>yes</strong>
 
-root@192.168.30.20's password: <strong>The root password from Slave Server</strong>
+root@192.168.30.20's password: <strong>The root password from Remote Server</strong>
 </pre>
 
-At the end of the installation you have to see the following message
 
-<pre>
