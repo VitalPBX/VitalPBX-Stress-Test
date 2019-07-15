@@ -186,7 +186,7 @@ echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/ombutel/exte
 	if [ "$protocol" = 1 ] ;then
 		echo -e " same => n,Dial(SIP/call-test-trk/100,30,rtT)" 	>> /etc/asterisk/ombutel/extensions__60-call-test.conf
 	else
-		echo -e " same => n,Dial(IAX/call-test-trk/100,30,rtT)"		>> /etc/asterisk/ombutel/extensions__60-call-test.conf
+		echo -e " same => n,Dial(IAX2/call-test-trk/100,30,rtT)"		>> /etc/asterisk/ombutel/extensions__60-call-test.conf
 	fi
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/ombutel/extensions__60-call-test.conf
 
@@ -276,7 +276,7 @@ ssh root@$ip_remote "echo -e ' same => n,Hangup()' 				>> /etc/asterisk/ombutel/
 	fi
 
 	if [ "$protocol" = 2 ] ;then
-		ssh root@$ip_remote "rm -rf /etc/asterisk/ombutel/sip__60-call-test.conf
+		ssh root@$ip_remote "rm -rf /etc/asterisk/ombutel/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/ombutel/iax__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/ombutel/iax__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/ombutel/iax__60-call-test.conf"
