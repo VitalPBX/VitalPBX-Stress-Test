@@ -334,8 +334,8 @@ echo -e " **********************************************************************
 echo -e " *************************************************************************************"
 echo -e " -------------------------------------------------------------------------------------"
 printf "%2s %7s %10s %16s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
-R1=`cat /sys/class/net/eth0/statistics/rx_bytes`
-T1=`cat /sys/class/net/eth0/statistics/tx_bytes`
+R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
+T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 date1=$(date +"%s")
 sleep 1
 echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
@@ -385,8 +385,8 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		if [ "$cpu" -gt "$maxcpuload" ] ;then
 			exitcalls=true
 		fi
-		R1=`cat /sys/class/net/eth0/statistics/rx_bytes`
-		T1=`cat /sys/class/net/eth0/statistics/tx_bytes`
+		R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
+		T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 		date1=$(date +"%s")
 		sleep "$call_step_seconds"
         done
