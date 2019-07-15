@@ -310,12 +310,12 @@ echo -e " **********************************************************************
 	fi
 echo -e " ******************************************************************************************"
 echo -e " ------------------------------------------------------------------------------------------"
-printf "%2s %7s %10s %16s %10s %15s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Memory/Swap |" "BW TX kb/s |" "BW RX kb/s |"
+printf "%2s %7s %10s %16s %10s %15s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
 R1=`cat /sys/class/net/eth0/statistics/rx_bytes`
 T1=`cat /sys/class/net/eth0/statistics/tx_bytes`
 date1=$(date +"%s")
 sleep 1
-echo -e "calls, active calls, cpu load (%), memory, swap, bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
+echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
 	while [ $exitcalls = 'false' ]        
         do
        		R2=`cat /sys/class/net/eth0/statistics/rx_bytes`
@@ -335,7 +335,7 @@ echo -e "calls, active calls, cpu load (%), memory, swap, bwtx (kb/s), bwrx(kb/s
 		cpu=`top -n 1 | awk 'FNR > 7 {s+=$10} END {print s}'`
 		cpuint=${cpu%.*}
 		cpu="$((cpuint/numcores))"
-		memory=`free | awk '/Mem/{printf("%.2f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.2f%"), $4/($3+$4)*100} /Swap/{printf(",%.2f%\n"), $3/$2*100}'`
+		memory=`free | awk '/Mem/{printf("%.2f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.2f%"), $4/($3+$4)*100}'`
 		if [ "$cpu" -le 34 ] ;then
 			echo -e "\e[39m ------------------------------------------------------------------------------------------"
 		fi
