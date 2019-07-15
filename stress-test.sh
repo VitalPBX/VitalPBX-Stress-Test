@@ -28,21 +28,24 @@ filename="config.txt"
 					ip_remote=$line
   				;;
 				3)
-					protocol=$line
+					interface_name=$line
   				;;
 				4)
-					codec=$line
+					protocol=$line
   				;;
 				5)
-					recording=$line
+					codec=$line
   				;;
 				6)
-					maxcpuload=$line
+					recording=$line
   				;;
 				7)
-					call_step=$line
+					maxcpuload=$line
   				;;
 				8)
+					call_step=$line
+  				;;
+				9)
 					call_step_seconds=$line
   				;;
 			esac
@@ -50,6 +53,7 @@ filename="config.txt"
 		done < $filename
 		echo -e "IP Local....................................... >  $ip_local"	
 		echo -e "IP Remote...................................... >  $ip_remote"
+		echo -e "Network Interface name (ej: eth0).............. >  $interface_name"
 		echo -e "Protocol (1.-SIP, 2.-IAX)...................... >  $protocol"
 		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
@@ -66,7 +70,12 @@ filename="config.txt"
 	while [[ $ip_remote == '' ]]
 	do
     		read -p "IP Remote...................................... > " ip_remote 
-	done 
+	done
+	
+	while [[ $interface_name == '' ]]
+	do
+    		read -p "Network Interface name (ej: eth0).............. > " interface_name 
+	done
 
 	while [[ $protocol == '' ]]
 	do
@@ -122,6 +131,11 @@ echo -e "************************************************************"
     			read -p "IP Remote...................................... > " ip_remote 
 		done
 
+		while [[ $interface_name == '' ]]
+		do
+    			read -p "Network Interface name (ej: eth0).............. > " interface_name 
+		done
+		
 		while [[ $protocol == '' ]]
 		do
     			read -p "Protocol (1.-SIP, 2.-IAX....................... > " protocol 
@@ -155,6 +169,7 @@ echo -e "************************************************************"
 
 echo -e "$ip_local" 		> config.txt
 echo -e "$ip_remote" 		>> config.txt
+echo -e "$interface_name" 	>> config.txt
 echo -e "$protocol" 		>> config.txt
 echo -e "$codec" 		>> config.txt
 echo -e "$recording" 		>> config.txt
@@ -326,8 +341,8 @@ sleep 1
 echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
 	while [ $exitcalls = 'false' ]        
         do
-       		R2=`cat /sys/class/net/eth0/statistics/rx_bytes`
-       		T2=`cat /sys/class/net/eth0/statistics/tx_bytes`
+       		R2=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
+       		T2=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 		date2=$(date +"%s")
 		diff=$(($date2-$date1))
 		seconds="$(($diff % 60))"
