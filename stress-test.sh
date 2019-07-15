@@ -188,6 +188,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/ombutel/extensions__60-cal
 
 	if [ "$protocol" = 1 ] ;then
 		protocol_name=SIP
+		rm -rf /etc/asterisk/ombutel/iax__60-call-test.conf
 		echo -e "[call-test-trk]" 					> /etc/asterisk/ombutel/sip__60-call-test.conf
 		echo -e "context=call-test-ext" 				>> /etc/asterisk/ombutel/sip__60-call-test.conf
 		echo -e "description=Call_Test" 				>> /etc/asterisk/ombutel/sip__60-call-test.conf
@@ -214,6 +215,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/ombutel/extensions__60-cal
 
 	if [ "$protocol" = 2 ] ;then
 		protocol_name=IAX
+		rm -rf /etc/asterisk/ombutel/sip__60-call-test.conf
 		echo -e "[call-test-trk]" 					> /etc/asterisk/ombutel/iax__60-call-test.conf
 		echo -e "context=call-test-ext" 				>> /etc/asterisk/ombutel/iax__60-call-test.conf
 		echo -e "description=Call_Test" 				>> /etc/asterisk/ombutel/iax__60-call-test.conf
@@ -247,6 +249,7 @@ ssh root@$ip_remote "echo -e ' same => n,Goto(begin)' 				>> /etc/asterisk/ombut
 ssh root@$ip_remote "echo -e ' same => n,Hangup()' 				>> /etc/asterisk/ombutel/extensions__60-call-test.conf"
 
 	if [ "$protocol" = 1 ] ;then
+		ssh root@$ip_remote "rm -rf /etc/asterisk/ombutel/iax__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/ombutel/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/ombutel/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/ombutel/sip__60-call-test.conf"
@@ -269,6 +272,7 @@ ssh root@$ip_remote "echo -e ' same => n,Hangup()' 				>> /etc/asterisk/ombutel/
 	fi
 
 	if [ "$protocol" = 2 ] ;then
+		ssh root@$ip_remote "rm -rf /etc/asterisk/ombutel/sip__60-call-test.conf
 		ssh root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/ombutel/iax__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/ombutel/iax__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/ombutel/iax__60-call-test.conf"
@@ -359,7 +363,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		done
 		let step=step+1
 		let i=i+"$call_step"
-		if [ "$cpuint" -gt "$maxcpuload" ] ;then
+		if [ "$cpu" -gt "$maxcpuload" ] ;then
 			exitcalls=true
 		fi
 		R1=`cat /sys/class/net/eth0/statistics/rx_bytes`
