@@ -1,4 +1,4 @@
-VitalPBX Stress Test
+VitalPBX-Asterisk Stress Test
 =====
 For a long time many people have asked us the following:<br>
 What is the concurrent call capacity of VitalPBX or Asterisk?<br>
