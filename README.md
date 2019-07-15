@@ -36,5 +36,5 @@ root@192.168.30.20's password: <strong>The root password from Remote Server</str
 </pre>
 
 Note:<br>
-The test can not last more than 6 minutes due to the duration of the test audio. If you want a longer duration, change the test audio or add more audios in the line of:<br>
-asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback <Test Audio>
+The test can not last more than 10 minutes due to the duration of the audio. If you want a longer duration, change the audio or add more "demo-instruct" audio on the line::<br>
+asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback demo-instruct&demo-instruct......
