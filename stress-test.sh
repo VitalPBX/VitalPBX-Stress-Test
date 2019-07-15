@@ -183,7 +183,11 @@ echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/ombutel/exte
 	if [ "$recording" = yes ] ;then
 		echo -e " same => n,MixMonitor(/tmp/$"{UNIQUEID}".wav,ab)" 	>> /etc/asterisk/ombutel/extensions__60-call-test.conf
 	fi
-echo -e " same => n,Dial(SIP/call-test-trk/100,30,rtT)" 			>> /etc/asterisk/ombutel/extensions__60-call-test.conf
+	if [ "$protocol" = 1 ] ;then
+		echo -e " same => n,Dial(SIP/call-test-trk/100,30,rtT)" 			>> /etc/asterisk/ombutel/extensions__60-call-test.conf
+	else
+		echo -e " same => n,Dial(IAX/call-test-trk/100,30,rtT)"
+	fi
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/ombutel/extensions__60-call-test.conf
 
 	if [ "$protocol" = 1 ] ;then
