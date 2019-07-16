@@ -45,7 +45,7 @@ Hardware Info<br>
 Motherboard:	YANYU STX-R19F
 CPU Model:	  Intel(R) Celeron(R) CPU J1900 @ 1.99GHz
 CPU Cores:	  4
-RAM:		    4 GB
+MEMORY RAM:   4 GB
 </pre>
 
 ![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_Celeron_J1900.png)
@@ -59,7 +59,7 @@ Hardware Info<br>
 Motherboard:	YANYU STX-N92_VER:1.0
 CPU Model:	  Intel(R) Core(TM) i5-4210Y CPU @ 1.50GHz
 CPU Cores:	  4
-RAM:        4 GB
+MEMORY RAM:   4 GB
 </pre>
 
 ![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_Intel_I5.png)
