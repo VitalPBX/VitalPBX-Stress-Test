@@ -48,6 +48,6 @@ CPU Cores:	4
 RAM:		4 GB
 </pre>
 
-https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_Celeron_J1900.png
-![VitalPBX HA]
+![VitalPBX HA] https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_Celeron_J1900.png
+
 
