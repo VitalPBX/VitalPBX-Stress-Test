@@ -43,6 +43,20 @@ asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback
 ## Test results
 Hardware Info<br>
 <pre>
+Motherboard----> Motherboard	Raspberry Pi 3 Model B Plus Rev 1.3
+CPU Model------> CPU Model	ARMv7 Processor rev 4 (v7l)
+CPU Cores------> 4
+MEMORY RAM-----> 1 GB
+</pre>
+
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_RaspberryPI3.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_REC_RaspberryPI3.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_G729_RaspberryPI3.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_G729_REC_RaspberryPI3.png)
+
+
+Hardware Info<br>
+<pre>
 Motherboard----> YANYU STX-R19F
 CPU Model------> Intel(R) Celeron(R) CPU J1900 @ 1.99GHz
 CPU Cores------> 4
