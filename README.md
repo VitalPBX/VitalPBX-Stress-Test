@@ -43,7 +43,7 @@ asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback
 ## Test results
 Hardware Info<br>
 <pre>
-Motherboard----> Motherboard	Raspberry Pi 3 Model B Plus Rev 1.3
+Motherboard----> Raspberry Pi 3 Model B Plus Rev 1.3
 CPU Model------> CPU Model	ARMv7 Processor rev 4 (v7l)
 CPU Cores------> 4
 MEMORY RAM-----> 1 GB
