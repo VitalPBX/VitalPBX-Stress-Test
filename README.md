@@ -17,10 +17,11 @@ Now copy and run the following script<br>
 [root@vitalpbx1 ~]#  chmod +x stress-test.sh
 [root@vitalpbx1 ~]#  ./stress-test.sh
 </pre>
-Set these values:
+Set these values (In your case the values can change):
 <pre>
 IP Local....................................... >  <strong>192.168.30.10</strong>	
 IP Remote...................................... >  <strong>192.168.30.20</strong>
+Network Interface name (ej: eth0).............. >  <strong>eth0</strong>
 Protocol (1.-SIP, 2.-IAX)...................... >  <strong>1</strong>
 Codec (1.-None, 2.-G79, 3.- GSM)............... >  <strong>1</strong>
 Recording Calls (yes,no)....................... >  <strong>no</strong>
