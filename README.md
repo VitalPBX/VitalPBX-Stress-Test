@@ -38,3 +38,16 @@ root@192.168.30.20's password: <strong>The root password from Remote Server</str
 Note:<br>
 The test can not last more than 10 minutes due to the duration of the audio. If you want a longer duration, change the audio or add more "demo-instruct" audio on the line::<br>
 asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback demo-instruct&demo-instruct......
+
+## Test results
+Hardware Info<br>
+<pre>
+Motherboard:	YANYU STX-R19F
+CPU Model:	Intel(R) Celeron(R) CPU J1900 @ 1.99GHz
+CPU Cores:	4
+RAM:		4 GB
+</pre>
+
+https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_Celeron_J1900.png
+![VitalPBX HA]
+
