@@ -93,9 +93,9 @@ Another conclusion we cam to with these tests, is that the memory is not very im
 
 ## Recommendations
 
-1.-Always size the server with a test of 50% (maximum) of occupation, that is to say, when performing the test take as the maximum when the occupation of the CPU reaches 50%. This is because you have to take into account that we may have other applications running on the same server at any given time.
-2.- Do not make the mistake of over-sizing the server. in many cases, with 4GB of RAM is more than enough
-3.- Use solid state drives, since this increases the speed of execution for any process.
-4.- Never do this test on a server that is in production. Perform this test before deploying any server with VitalPBX.
-5.- All of your comments are welcome.
+1.-Always size the server with a test of 50% (maximum) of occupation, that is to say, when performing the test take as the maximum when the occupation of the CPU reaches 50%. This is because you have to take into account that we may have other applications running on the same server at any given time.<br>
+2.- Do not make the mistake of over-sizing the server. in many cases, with 4GB of RAM is more than enough.<br>
+3.- Use solid state drives, since this increases the speed of execution for any process.<br>
+4.- Never do this test on a server that is in production. Perform this test before deploying any server with VitalPBX.<br>
+5.- All of your comments are welcome.<br>
 
