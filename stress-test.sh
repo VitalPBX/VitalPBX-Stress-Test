@@ -317,7 +317,7 @@ asterisk -rx"core restart now"
 ssh root@$ip_remote "asterisk -rx'core restart now'"
 echo -e "*** Done ***"
 echo -e " *************************************************************************************"
-echo -e "*                       Restarting Asterisk in both Server                           *"
+echo -e " *                      Restarting Asterisk in both Server                           *"
 echo -e " *************************************************************************************"
 sleep 10
 numcores=`nproc --all`
@@ -392,12 +392,12 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
         done
 echo -e "\e[39m -------------------------------------------------------------------------------------"
 echo -e " *************************************************************************************"
-echo -e "*                                Restarting Asterisk                                 *"
+echo -e " *                               Restarting Asterisk                                 *"
 echo -e " *************************************************************************************"
 asterisk -rx"core restart now"
 rm -rf /tmp/*.wav
 echo -e " *************************************************************************************"
-echo -e "*                                  Test Complete                                     *"
-echo -e "*                             Result in data.csv file                                *"
+echo -e " *                                 Test Complete                                     *"
+echo -e " *                            Result in data.csv file                                *"
 echo -e " *************************************************************************************"
 echo -e "\e[39m"
