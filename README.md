@@ -16,8 +16,8 @@ Next, copy and run the following script on the server you wish to stress test<br
 <pre>
 [root@vitalpbx1 ~]#  cd /
 [root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test-v2.sh
-[root@vitalpbx1 ~]#  chmod +x stress-test.sh
-[root@vitalpbx1 ~]#  ./stress-test.sh
+[root@vitalpbx1 ~]#  chmod +x stress-test-v2.sh
+[root@vitalpbx1 ~]#  ./stress-test-v2.sh
 </pre>
 
 ## Script VitalPBX V3
@@ -25,8 +25,8 @@ Next, copy and run the following script on the server you wish to stress test<br
 <pre>
 [root@vitalpbx1 ~]#  cd /
 [root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test-v3.sh
-[root@vitalpbx1 ~]#  chmod +x stress-test.sh
-[root@vitalpbx1 ~]#  ./stress-test.sh
+[root@vitalpbx1 ~]#  chmod +x stress-test-v3.sh
+[root@vitalpbx1 ~]#  ./stress-test-v3.sh
 </pre>
 Set up the following information (In your case the values can change):
 <pre>
