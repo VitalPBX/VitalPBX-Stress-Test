@@ -201,7 +201,7 @@ echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/ext
 	if [ "$protocol" = 1 ] ;then
 		echo -e " same => n,Dial(SIP/call-test-trk/100,30,rtT)" 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	else
-		echo -e " same => n,Dial(IAX2/call-test-trk/100,30,rtT)"		>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+		echo -e " same => n,Dial(IAX2/call-test-trk/100,30,rtT)"	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
@@ -212,6 +212,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "description=Call_Test" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "host=$ip_remote" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
+		echo -e "port=5062" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "type=friend" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "transport=udp" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "qualify=yes" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
@@ -273,6 +274,7 @@ ssh root@$ip_remote "echo -e ' same => n,Hangup()' 				>> /etc/asterisk/vitalpbx
 		ssh root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'host=$ip_local' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
+		ssh root@$ip_remote "	echo -e 'port=5062' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'type=friend' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'transport=udp' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
 		ssh root@$ip_remote "	echo -e 'qualify=yes' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
