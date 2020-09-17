@@ -234,7 +234,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 
 	if [ "$protocol" = 2 ] ;then
 		protocol_name=IAX
-		rm -rf /etc/asterisk/ombutel/sip__60-call-test.conf
+		rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf
 		echo -e "[call-test-trk]" 					> /etc/asterisk/vitalpbx/iax__60-call-test.conf
 		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
 		echo -e "description=Call_Test" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
