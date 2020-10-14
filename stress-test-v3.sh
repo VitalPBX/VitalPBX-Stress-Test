@@ -183,7 +183,7 @@ echo -e "************************************************************"
 
 echo -e "$ip_local" 		> config.txt
 echo -e "$ip_remote" 		>> config.txt
-echo -e "$ssh_remote_port	>> config.txt
+echo -e "$ssh_remote_port"	>> config.txt
 echo -e "$interface_name" 	>> config.txt
 echo -e "$protocol" 		>> config.txt
 echo -e "$codec" 		>> config.txt
