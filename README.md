@@ -11,22 +11,13 @@ We took on the task of conducting an investigation of how to perform a test of c
 ## Prerequisites
 To do this test it is necessary to have two VitalPBX servers installed, the server on which we will perform the tests and the remote server to which we will connect. It should be noted, that it is necessary that the remote VitalPBX server should have more capacity than the local one. Because if it had less capacity, it will not stress test the maximum capacity of the local server.<br>
 
-## Script VitalPBX V2
+## Script VitalPBX V3 and V4
 Next, copy and run the following script on the server you wish to stress test<br>
 <pre>
 [root@vitalpbx1 ~]#  cd /
-[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test-v2.sh
-[root@vitalpbx1 ~]#  chmod +x stress-test-v2.sh
-[root@vitalpbx1 ~]#  ./stress-test-v2.sh
-</pre>
-
-## Script VitalPBX V3
-Next, copy and run the following script on the server you wish to stress test<br>
-<pre>
-[root@vitalpbx1 ~]#  cd /
-[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test-v3.sh
-[root@vitalpbx1 ~]#  chmod +x stress-test-v3.sh
-[root@vitalpbx1 ~]#  ./stress-test-v3.sh
+[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test.sh
+[root@vitalpbx1 ~]#  chmod +x stress-test.sh
+[root@vitalpbx1 ~]#  ./stress-test.sh
 </pre>
 Set up the following information (In your case the values can change):
 <pre>
