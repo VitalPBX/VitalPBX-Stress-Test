@@ -2,13 +2,13 @@
 set -e
 # Authors:      Rodrigo Cuadra
 #               with Collaboration of Jose Miguel Rivera
-# Date:         17-Sep-2020
+# Date:         3-Jun-2022
 # Support:      rcuadra@vitalpbx.com
 #
 echo -e "\n"
 echo -e "\e[39m"
 echo -e "************************************************************"
-echo -e "*        Welcome to the VitalPBX 3 stress test              *"
+echo -e "*       Welcome to the VitalPBX 3-4 stress test            *"
 echo -e "*              All options are mandatory                   *"
 echo -e "************************************************************"
 echo -e "*           Warning-Warning-Warning-Warning                *"
