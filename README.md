@@ -46,10 +46,10 @@ asterisk -rx "channel originate Local / 200 @ call-test-ext application Playback
 ## Test results
 Hardware Info<br>
 <pre>
-Motherboard----> Raspberry Pi 3 Model B Plus Rev 1.3
-CPU Model------> CPU Model	ARMv7 Processor rev 4 (v7l)
+Motherboard----> Raspberry Pi 4 Model B
+CPU Model------> Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
 CPU Cores------> 4
-MEMORY RAM-----> 1 GB
+MEMORY RAM-----> 4 GB
 </pre>
 
 ![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_RaspberryPI4.png)
