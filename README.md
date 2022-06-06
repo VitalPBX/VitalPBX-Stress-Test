@@ -52,10 +52,10 @@ CPU Cores------> 4
 MEMORY RAM-----> 1 GB
 </pre>
 
-![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_RaspberryPI3.png)
-![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_REC_RaspberryPI3.png)
-![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_G729_RaspberryPI3.png)
-![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/VitalPBX_StressTest_SIP_G729_REC_RaspberryPI3.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_RaspberryPI4.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_REC_RaspberryPI4.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_G729_RaspberryPI4.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_G729_REC_RaspberryPI4.png)
 
 
 Hardware Info<br>
