@@ -85,6 +85,19 @@ MEMORY RAM-----> 4 GB
 ![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_G729_Intel_I5.png)
 ![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_G729_REC_Intel_I5.png)
 
+
+Hardware Info<br>
+<pre>
+Motherboard----> Virtual
+CPU Model------> 4 threads, 4GB RAM, M1 Max - ARM CPU
+CPU Cores------> 4
+MEMORY RAM-----> 4 GB
+</pre>
+
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_M1.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_REC_M1.png)
+![VitalPBX-Stress-Test](https://github.com/VitalPBX/VitalPBX-Stress-Test/blob/master/images/VitalPBX_StressTest_SIP_G729_REC_M1.png)
+
 ## Conclusions
 In the tests done to the Raspberry PI 3+ without using any type of codec and without recording of calls a total of up to 80 concurrent calls was achieved using 94% of CPU Processing and only 27% of memory, which we conclude Asterisk requires mostly processor resources when making a call. When we add call recording, the reduction in call capacity is 25%, that is 80 to 60 simultaneous calls. The most marked difference is when we use codec g729, there is a decrease in capacity of 50% and it increases to 60% less when we add call recording with the codec g729. In conclusion, the use of codecs affects the performance of our PBX by quite a lot, however, the benefit we have is the reduction of consumption bandwidth from 85K to 30k per call, approximately. We believe it is advisable not to use codecs since in this day and age, since the bandwidth that the ISPs offer us are much better than past decades, where compression was really needed.
 
