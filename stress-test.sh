@@ -277,6 +277,44 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 		fi
 	fi
 
+	if [ "$protocol" = 3 ] ;then
+		protocol_name=PJSIP
+		rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf
+		rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf
+		echo -e "[ToServer2](p1)" 					> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "context=trk-1-in" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		if [ "$codec" = 1 ] ;then
+			codec_name=g729
+			echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		fi		
+		if [ "$codec" = 2 ] ;then
+			codec_name=g729
+			echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		fi
+		if [ "$codec" = 3 ] ;then
+			codec_name=gsm
+			echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		fi
+		echo -e "language=en" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "aors=ToServer2" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "trust_id_inbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "trust_id_outbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "[ToServer2](p1-aor)" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "type=aor" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "max_contacts=2" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "contact=sip:ToServer2@$ip_remote:5060"			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "qualify_frequency=30" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "qualify_timeout=3" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "[ToServer2]" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "type=identify" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "endpoint=ToServer2" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "match=@$ip_remote" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+	fi
+	
 ssh -p $ssh_remote_port root@$ip_remote "echo -e '[call-test-ext]' 					> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e 'exten => _100,1,Answer()' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,NoCDR()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
