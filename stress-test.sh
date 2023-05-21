@@ -220,7 +220,7 @@ echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/ext
 		echo -e " same => n,Dial(IAX2/call-test-trk/100,30,rtT)"	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 	if [ "$protocol" = 3 ] ;then
-		echo -e " same => n,Dial(PJSIP/call-test-trk/100,30,rtT)"	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+		echo -e " same => n,Dial(PJSIP/call-test-trk/100)"		>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
