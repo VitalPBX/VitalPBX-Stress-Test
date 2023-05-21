@@ -206,7 +206,7 @@ echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e "exten => _100,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	if [ "$cdrs" != yes ] ;then
 		echo -e " same => n,NoCDR()" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
