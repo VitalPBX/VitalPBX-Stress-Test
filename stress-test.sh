@@ -58,7 +58,7 @@ filename="config.txt"
 		echo -e "IP Remote...................................... >  $ip_remote"
 		echo -e "SSH Remote Port (Default is 22)................ >  $ssh_remote_port"
 		echo -e "Network Interface name (ej: eth0).............. >  $interface_name"
-		echo -e "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ >  $protocol"
+		echo -e "Protocol (1.-SIP, 2.-IAX)...................... >  $protocol"
 		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
 		echo -e "Max CPU Load (Recommended 90%)................. >  $maxcpuload"
@@ -88,7 +88,7 @@ filename="config.txt"
 
 	while [[ $protocol == '' ]]
 	do
-    		read -p "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ > " protocol 
+    		read -p "Protocol (1.-SIP, 2.-IAX)...................... > " protocol 
 	done
 
 	while [[ $codec == '' ]]
@@ -277,35 +277,6 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 		fi
 	fi
 
-	if [ "$protocol" = 3 ] ;then
-		protocol_name=SIP
-		rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "[call-test-trk]" 					> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "description=Call_Test" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "host=$ip_remote" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "port=5062" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "type=friend" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "transport=udp" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "qualify=yes" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "outbound_registration=yes" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "auth_rejection_permanent=yes" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "max_retries=10" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "expiration=3600" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "retry_interval=60" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "forbidden_retry_interval=10" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		codec_name=NONE
-		if [ "$codec" = 2 ] ;then
-			codec_name=g729
-			echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		fi
-		if [ "$codec" = 3 ] ;then
-			codec_name=gsm
-			echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		fi
-	fi
-
 ssh -p $ssh_remote_port root@$ip_remote "echo -e '[call-test-ext]' 					> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e 'exten => _100,1,Answer()' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,NoCDR()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
@@ -362,32 +333,6 @@ ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /
 			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,gsm' 	>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
 		fi
 	fi
-
-	if [ "$protocol" = 3 ] ;then
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'host=$ip_local' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'port=5062' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=friend' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'transport=udp' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify=yes' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'outbound_registration=yes' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'auth_rejection_permanent=yes'		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'max_retries=10' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'expiration=3600' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'retry_interval=60' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'forbidden_retry_interval=10' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		if [ "$codec" = 2 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,g729' 	>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		fi
-		if [ "$codec" = 3 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,gsm' 	>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		fi
-	fi
-
 
 asterisk -rx"core restart now"
 ssh -p $ssh_remote_port root@$ip_remote "asterisk -rx'core restart now'"
@@ -471,7 +416,7 @@ echo -e " **********************************************************************
 echo -e " *                               Restarting Asterisk                                 *"
 echo -e " *************************************************************************************"
 asterisk -rx"core restart now"
-ssh -p $ssh_remote_port root@$ip_remote '"asterisk -rx"core restart now"'
+ssh -p $ssh_remote_port root@$ip_remote 'asterisk -rx"core restart now"'
 rm -rf /tmp/*.wav
 echo -e " *************************************************************************************"
 echo -e " *                                 Test Complete                                     *"
