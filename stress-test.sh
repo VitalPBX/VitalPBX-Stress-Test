@@ -471,6 +471,7 @@ echo -e " **********************************************************************
 echo -e " *                               Restarting Asterisk                                 *"
 echo -e " *************************************************************************************"
 asterisk -rx"core restart now"
+ssh -p $ssh_remote_port root@$ip_remote '"asterisk -rx"core restart now"'
 rm -rf /tmp/*.wav
 echo -e " *************************************************************************************"
 echo -e " *                                 Test Complete                                     *"
