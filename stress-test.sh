@@ -201,7 +201,7 @@ echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
-maxcpuloadporc="$((maxcpuload/100))"
+maxcpuloadporc=$(echo "scale=2; maxcpuload/100" | bc)
 
 echo -e "[options](+)" 								> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
 echo -e "maxload = $maxcpuloadporc" 						>> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
@@ -439,7 +439,7 @@ R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 date1=$(date +"%s")
 sleep 1
-lastactivecalls = 1
+lastactivecalls=1
 echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
 	while [ $exitcalls = 'false' ]        
         do
