@@ -201,6 +201,11 @@ echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
+$maxcpuloadporc = $maxcpuload/100
+
+echo -e "[options](+)" 								> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
+echo -e "maxload = $maxcpuloadporc" 						>> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
+
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	if [ "$cdrs" != yes ] ;then
@@ -434,6 +439,7 @@ R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 date1=$(date +"%s")
 sleep 1
+lastactivecalls = 1
 echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
 	while [ $exitcalls = 'false' ]        
         do
@@ -481,15 +487,21 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		if [ "$cpu" -gt "$maxcpuload" ] ;then
 			exitcalls=true
 		fi
+		if [ "$activecalls" = "$lastactivecalls" ] ;then
+			exitcalls=true
+		fi
+		
 		R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 		T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 		date1=$(date +"%s")
 		sleep "$call_step_seconds"
-        done
+		lastactivecalls=$activecalls
+	done
 echo -e "\e[39m -------------------------------------------------------------------------------------"
 echo -e " *************************************************************************************"
 echo -e " *                               Restarting Asterisk                                 *"
 echo -e " *************************************************************************************"
+rm -rf /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
 asterisk -rx"core restart now"
 ssh -p $ssh_remote_port root@$ip_remote 'asterisk -rx"core restart now"'
 rm -rf /tmp/*.wav
