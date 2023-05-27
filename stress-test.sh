@@ -290,7 +290,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 		echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		echo -e "context=call-test-trk" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		if [ "$codec" = 1 ] ;then
-			codec_name=g729
+			codec_name=ulaw
 			echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		fi		
 		if [ "$codec" = 2 ] ;then
