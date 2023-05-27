@@ -487,7 +487,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		if [ "$cpu" -gt "$maxcpuload" ] ;then
 			exitcalls=true
 		fi
-		if [ "$activecalls" == "$lastactivecalls" ] ;then
+		if [ "$activecalls" -eq "$lastactivecalls" ] ;then
 			exitcalls=true
 		fi
 		
