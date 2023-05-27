@@ -465,7 +465,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		if [ "$cpu" -ge 65 ] ;then
 			echo -e "\e[91m -----------------------------------------------------------------------------------------------"
 		fi
-		printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " "$step" |" ""$i" |" ""$activecalls" |" ""$cpu"% |" ""$load " |" ""$memory" |" ""$bwtx" |" ""$bwrx" |"
+		printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " "$step" |" ""$i" |" ""$activecalls" |" ""$cpu"% |" ""$load" |" ""$memory" |" ""$bwtx" |" ""$bwrx" |"
 		echo -e "$i, $activecalls, $cpu, $load, $memory, $bwtx, $bwrx, $seconds" 	>> data.csv
 		exitstep=false
 		x=1
