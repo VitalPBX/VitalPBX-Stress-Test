@@ -284,7 +284,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 		echo -e "[call-test-trk](p1)" 					> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "context=call-test-trk" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 		if [ "$codec" = 1 ] ;then
 			codec_name=ulaw
 			echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
