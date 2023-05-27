@@ -57,7 +57,7 @@ filename="config.txt"
 		echo -e "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ >  $protocol"
 		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
-		echo -e "Max CPU Load (Recommended 90%)................. >  $maxcpuload"
+		echo -e "Max CPU Asterisk Load (Recommended 90%)........ >  $maxcpuload"
 		echo -e "Calls Step (Recommended 5-20).................. >  $call_step"
 		echo -e "Seconds between each step (Recommended 5-30)... >  $call_step_seconds"
 	fi
@@ -99,7 +99,7 @@ filename="config.txt"
 
 	while [[ $maxcpuload == '' ]]
 	do
-    		read -p "Max CPU Load (Recommended 90%)................. > " maxcpuload 
+    		read -p "Max CPU Asterisk Load (Recommended 90%)........ > " maxcpuload 
 	done 
 
 	while [[ $call_step == '' ]]
@@ -163,7 +163,7 @@ echo -e "************************************************************"
 
 		while [[ $maxcpuload == '' ]]
 		do
-    			read -p "Max CPU Load (Recommended 90%)................. > " maxcpuload 
+    			read -p "Max CPU Asterisk Load (Recommended 90%)........ > " maxcpuload 
 		done 
 
 		while [[ $call_step == '' ]]
