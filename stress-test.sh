@@ -429,7 +429,7 @@ echo -e " **********************************************************************
 	fi
 echo -e " *********************************************************************************************"
 echo -e " -------------------------------------------------------------------------------------"
-printf "%2s %7s %10s %16s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
+printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
 R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 date1=$(date +"%s")
