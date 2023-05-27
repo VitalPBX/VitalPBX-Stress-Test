@@ -201,7 +201,7 @@ echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
-maxcpuloadporc=$(echo "scale=2; maxcpuload/100" | bc)
+maxcpuloadporc=$(printf %.2f "$((1000000000 * maxcpuload / 100))e-9")
 
 echo -e "[options](+)" 								> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
 echo -e "maxload = $maxcpuloadporc" 						>> /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
