@@ -383,7 +383,7 @@ ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /
 		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk](p1)'				> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=endpoint'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'dtmf_mode=rfc4733' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-trk'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 		if [ "$codec" = 1 ] ;then
 			codec_name=g729
 			ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,ulaw,alaw' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
