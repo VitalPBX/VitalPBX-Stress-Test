@@ -133,6 +133,51 @@ echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
+echo -e "[999](p1)" 						> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "auth=auth999" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "identify_by=username,auth_username" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "outbound_auth=auth999" 				>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "aors=999" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "deny=9" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "permit=9" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "message_context=messages" 				>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "set_var=DEVICENAME=999" 				>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "tone_zone=us" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "set_var=CHANNEL(parkinglot)=parking-1" 		>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+	if [ "$codec" = 1 ] ;then
+		codec_name=ulaw,alaw
+		echo -e "allow=!all,ulaw,alaw" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+	fi
+	if [ "$codec" = 2 ] ;then
+		codec_name=g729
+		echo -e "allow=!all,g729" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+	fi
+	if [ "$codec" = 3 ] ;then
+		codec_name=gsm
+		echo -e "allow=!all,gsm" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+	fi
+echo -e "language=en" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "moh_suggest=default" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "context=cos-all" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "mailboxes=999@vitalpbx-voicemail" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "device_state_busy_at=0" 				>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "callerid="Stress Test" <999>" 				>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "[auth999]" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "type=auth" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "auth_type=userpass" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "username=999" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "password=4R3u92nYDm2b7zaN48ZNvwgAx" 			>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "[999](p1-aor)" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "type=aor" 						>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+echo -e "max_contacts=5" 					>> /etc/asterisk/vitalpbx/pjsip__61-call-test.conf
+
+
+
+
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__61-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__61-call-test.conf
 	if [ "$cdrs" != yes ] ;then
