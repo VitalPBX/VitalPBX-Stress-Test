@@ -58,8 +58,8 @@ filename="config.txt"
 		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
 		echo -e "Max CPU Load (Recommended 90%)................. >  $maxcpuload"
-		echo -e "Calls Step (Recommended 5-20).................. >  $call_step"
-		echo -e "Seconds between each step (Recommended 5-30)... >  $call_step_seconds"
+		echo -e "Calls Step (Recommended 5-50).................. >  $call_step"
+		echo -e "Seconds between each step (Recommended 3-30)... >  $call_step_seconds"
 	fi
 	
 	while [[ $ip_local == '' ]]
@@ -104,12 +104,12 @@ filename="config.txt"
 
 	while [[ $call_step == '' ]]
 	do
-    		read -p "Calls Step (Recommended 5-20).................. > " call_step 
+    		read -p "Calls Step (Recommended 5-50).................. > " call_step 
 	done 
 
 	while [[ $call_step_seconds == '' ]]
 	do
-    		read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
+    		read -p "Seconds between each step (Recommended 3-30)... > " call_step_seconds
 	done 
 
 echo -e "************************************************************"
@@ -168,12 +168,12 @@ echo -e "************************************************************"
 
 		while [[ $call_step == '' ]]
 		do
-    			read -p "Calls Step (Recommended 5-20).................. > " call_step 
+    			read -p "Calls Step (Recommended 5-50).................. > " call_step 
 		done 
 
 		while [[ $call_step_seconds == '' ]]
 		do
-    			read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
+    			read -p "Seconds between each step (Recommended 3-30)... > " call_step_seconds
 		done 
 	fi
 
@@ -422,7 +422,7 @@ i=0
 step=0
 clear
 echo -e " ************************************************************************************************"
-echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
+echo -e "     Actual Test State (Step: "$call_step_seconds"s, Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
 echo -e " ************************************************************************************************"
 echo -e " ------------------------------------------------------------------------------------------------"
 printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
