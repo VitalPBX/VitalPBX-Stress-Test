@@ -12,7 +12,7 @@ We took on the task of conducting an investigation of how to perform a test of c
 To do this test it is necessary to have two VitalPBX servers installed, the server on which we will perform the tests and the remote server to which we will connect. It should be noted, that it is necessary that the remote VitalPBX server should have more capacity than the local one. Because if it had less capacity, it will not stress test the maximum capacity of the local server.<br>
 
 ## Recommendations
-- Wait at least one minute between each test, since the load parameter is an indication of the last minute load.
+- Wait at least five minute between each test, since the load parameter is an indication of the last minute load.
 - It is recommended to do this test on a completely clean server, without previous configurations. VitalPBX recently installed.
 
 ## Script VitalPBX V3 and V4
