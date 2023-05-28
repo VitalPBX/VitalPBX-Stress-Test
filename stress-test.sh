@@ -422,11 +422,7 @@ i=0
 step=0
 clear
 echo -e " ************************************************************************************************"
-	if [ "$codec" = 3 ] ;then
-		echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
-	else
-		echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
-	fi
+echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
 echo -e " ************************************************************************************************"
 echo -e " ------------------------------------------------------------------------------------------------"
 printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
