@@ -423,9 +423,9 @@ step=0
 clear
 echo -e " ***********************************************************************************************"
 	if [ "$codec" = 3 ] ;then
-		echo -e " *                Actual Test State (Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")               *"
+		echo -e " *      Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     *"
 	else
-		echo -e " *                Actual Test State (Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")               *"
+		echo -e " *      Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     *"
 	fi
 echo -e " ***********************************************************************************************"
 echo -e " -----------------------------------------------------------------------------------------------"
