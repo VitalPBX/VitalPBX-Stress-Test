@@ -412,23 +412,23 @@ ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /
 systemctl restart asterisk
 ssh -p $ssh_remote_port root@$ip_remote "systemctl restart asterisk"
 echo -e "*** Done ***"
-echo -e " *************************************************************************************"
-echo -e " *                      Restarting Asterisk in both Server                           *"
-echo -e " *************************************************************************************"
+echo -e " **************************************************************************************"
+echo -e " *                      Restarting Asterisk in both Server                            *"
+echo -e " **************************************************************************************"
 sleep 10
 numcores=`nproc --all`
 exitcalls=false
 i=0
 step=0
 clear
-echo -e " ***********************************************************************************************"
+echo -e " ************************************************************************************************"
 	if [ "$codec" = 3 ] ;then
-		echo -e " *      Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     *"
+		echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
 	else
-		echo -e " *      Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     *"
+		echo -e "          Actual Test State (Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
 	fi
-echo -e " ***********************************************************************************************"
-echo -e " -----------------------------------------------------------------------------------------------"
+echo -e " ************************************************************************************************"
+echo -e " ------------------------------------------------------------------------------------------------"
 printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Calls |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
 R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
@@ -457,13 +457,13 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		cpu="$((cpuint/numcores))"
 		memory=`free | awk '/Mem/{printf("%.2f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.2f%"), $4/($3+$4)*100}'`
 		if [ "$cpu" -le 34 ] ;then
-			echo -e "\e[92m -----------------------------------------------------------------------------------------------"
+			echo -e "\e[92m ------------------------------------------------------------------------------------------------"
 		fi
 		if [ "$cpu" -ge 35 ] && [ "$cpu" -lt 65 ] ;then
-			echo -e "\e[93m -----------------------------------------------------------------------------------------------"
+			echo -e "\e[93m ------------------------------------------------------------------------------------------------"
 		fi
 		if [ "$cpu" -ge 65 ] ;then
-			echo -e "\e[91m -----------------------------------------------------------------------------------------------"
+			echo -e "\e[91m ------------------------------------------------------------------------------------------------"
 		fi
 		printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " "$step" |" ""$i" |" ""$activecalls" |" ""$cpu"% |" ""$load" |" ""$memory" |" ""$bwtx" |" ""$bwrx" |"
 		echo -e "$i, $activecalls, $cpu, $load, $memory, $bwtx, $bwrx, $seconds" 	>> data.csv
@@ -487,16 +487,16 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		date1=$(date +"%s")
 		sleep "$call_step_seconds"
 	done
-echo -e "\e[39m -----------------------------------------------------------------------------------------------"
-echo -e " ***********************************************************************************************"
-echo -e " *                                    Restarting Asterisk                                      *"
-echo -e " ***********************************************************************************************"
+echo -e "\e[39m ------------------------------------------------------------------------------------------------"
+echo -e " ************************************************************************************************"
+echo -e " *                                    Restarting Asterisk                                       *"
+echo -e " ************************************************************************************************"
 rm -rf /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
 systemctl restart asterisk
 ssh -p $ssh_remote_port root@$ip_remote "systemctl restart asterisk"
 rm -rf /tmp/*.wav
-echo -e " ***********************************************************************************************"
-echo -e " *                                      Test Complete                                          *"
-echo -e " *                                 Result in data.csv file                                     *"
-echo -e " ***********************************************************************************************"
+echo -e " ************************************************************************************************"
+echo -e " *                                      Test Complete                                           *"
+echo -e " *                                 Result in data.csv file                                      *"
+echo -e " ************************************************************************************************"
 echo -e "\e[39m"
