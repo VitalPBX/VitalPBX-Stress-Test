@@ -429,6 +429,7 @@ printf "%2s %7s %10s %16s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "A
 R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 date1=$(date +"%s")
+slepcall=$(printf %.2f "$((1000000000 * call_step_seconds / call_step))e-9")
 sleep 1
 echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s), interval(seg)" 	> data.csv
 	while [ $exitcalls = 'false' ]        
@@ -472,6 +473,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 				exitstep=true
 			fi
 			asterisk -rx"channel originate Local/200@call-test-ext application Playback demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct"
+			sleep "$slepcall"
 		done
 		let step=step+1
 		let i=i+"$call_step"
@@ -481,7 +483,8 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 		T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 		date1=$(date +"%s")
-		sleep "$call_step_seconds"
+#		sleep "$call_step_seconds"
+		sleep 1
 	done
 echo -e "\e[39m ------------------------------------------------------------------------------------------------"
 echo -e " ************************************************************************************************"
