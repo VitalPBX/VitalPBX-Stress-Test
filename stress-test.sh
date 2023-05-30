@@ -449,9 +449,8 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		bwrx="$((RKBPS/seconds))"
 		activecalls=`asterisk -rx "core show calls" | grep "active" | cut -d' ' -f1`
 		load=`cat /proc/loadavg | awk '{print $0}' | cut -d " " -f 1`
-		cpu=`top -n 1 | awk 'FNR > 7 {s+=$10} END {print s}'`
-		cpuint=${cpu%.*}
-		cpu="$((cpuint/numcores))"
+		cputotal=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`
+		cpu=${cputotal%.*}
 		memory=`free | awk '/Mem/{printf("%.2f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.2f%"), $4/($3+$4)*100}'`
 		if [ "$cpu" -le 34 ] ;then
 			echo -e "\e[92m ------------------------------------------------------------------------------------------------"
