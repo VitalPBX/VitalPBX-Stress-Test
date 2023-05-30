@@ -2,7 +2,7 @@
 set -e
 # Authors:      Rodrigo Cuadra
 #               with Collaboration of Jose Miguel Rivera
-# Date:         28-May-2023
+# Date:         30-May-2023
 # Support:      rcuadra@vitalpbx.com
 #
 echo -e "\n"
@@ -57,9 +57,9 @@ filename="config.txt"
 		echo -e "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ >  $protocol"
 		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
-		echo -e "Max CPU Load (Recommended 90%)................. >  $maxcpuload"
-		echo -e "Calls Step (Recommended 5-50).................. >  $call_step"
-		echo -e "Seconds between each step (Recommended 3-30)... >  $call_step_seconds"
+		echo -e "Max CPU Load (Recommended 75%)................. >  $maxcpuload"
+		echo -e "Calls Step (Recommended 5-100)................. >  $call_step"
+		echo -e "Seconds between each step (Recommended 5-30)... >  $call_step_seconds"
 	fi
 	
 	while [[ $ip_local == '' ]]
@@ -99,17 +99,17 @@ filename="config.txt"
 
 	while [[ $maxcpuload == '' ]]
 	do
-    		read -p "Max CPU Load (Recommended 90%)................. > " maxcpuload 
+    		read -p "Max CPU Load (Recommended 75%)................. > " maxcpuload 
 	done 
 
 	while [[ $call_step == '' ]]
 	do
-    		read -p "Calls Step (Recommended 5-50).................. > " call_step 
+    		read -p "Calls Step (Recommended 5-100)................. > " call_step 
 	done 
 
 	while [[ $call_step_seconds == '' ]]
 	do
-    		read -p "Seconds between each step (Recommended 3-30)... > " call_step_seconds
+    		read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
 	done 
 
 echo -e "************************************************************"
@@ -163,17 +163,17 @@ echo -e "************************************************************"
 
 		while [[ $maxcpuload == '' ]]
 		do
-    			read -p "Max CPU Load (Recommended 90%).................. > " maxcpuload 
+    			read -p "Max CPU Load (Recommended 75%).................. > " maxcpuload 
 		done 
 
 		while [[ $call_step == '' ]]
 		do
-    			read -p "Calls Step (Recommended 5-50).................. > " call_step 
+    			read -p "Calls Step (Recommended 5-100)................. > " call_step 
 		done 
 
 		while [[ $call_step_seconds == '' ]]
 		do
-    			read -p "Seconds between each step (Recommended 3-30)... > " call_step_seconds
+    			read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
 		done 
 	fi
 
