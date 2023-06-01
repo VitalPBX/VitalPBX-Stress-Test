@@ -32,9 +32,9 @@ Network Interface name (ej: eth0).............. >  <strong>eth0</strong>
 Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ >  <strong>1</strong>
 Codec (1.-None, 2.-G79, 3.- GSM)............... >  <strong>1</strong>
 Recording Calls (yes,no)....................... >  <strong>no</strong>
-Max CPU Load (Recommended 90%)................. >  <strong>90</strong>
-Calls Step (Recommended 3-20).................. >  <strong>3</strong>
-Seconds between each step (Recommended 5-50)... >  <strong>20</strong>
+Max CPU Load (Recommended 75%)................. >  <strong>75</strong>
+Calls Step (Recommended 5-100)................. >  <strong>5</strong>
+Seconds between each step (Recommended 5-50)... >  <strong>50</strong>
 
 Are you sure to continue with these settings? (yes,no) > <strong>yes</strong>
 
