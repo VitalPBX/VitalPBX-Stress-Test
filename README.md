@@ -17,14 +17,15 @@ To do this test it is necessary to have two VitalPBX servers installed, the serv
 
 ## Script VitalPBX V3 and V4
 Next, copy and run the following script on the server you wish to stress test<br>
-<pre>
-[root@vitalpbx1 ~]#  cd /
-[root@vitalpbx1 ~]#  wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test.sh
-[root@vitalpbx1 ~]#  chmod +x stress-test.sh
-[root@vitalpbx1 ~]#  ./stress-test.sh
-</pre>
+```
+cd /
+wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test.sh
+chmod +x stress-test.sh
+./stress-test.sh
+```
+
 Set up the following information (In your case the values can change):
-<pre>
+```
 IP Local....................................... >  <strong>192.168.30.10</strong>	
 IP Remote...................................... >  <strong>192.168.30.20</strong>
 SSH Remote Port (Default is 22)................ >  <strong>22</strong>
@@ -41,7 +42,7 @@ Are you sure to continue with these settings? (yes,no) > <strong>yes</strong>
 Are you sure you want to continue connecting (yes/no)? <strong>yes</strong>
 
 root@192.168.30.20's password: <strong>The root password from Remote Server</strong>
-</pre>
+```
 
 Note:<br>
 The test cannot last more than 10 minutes due to the duration of the audio. If you want a longer duration, change the audio or add more time to the "demo-instruct" audio on this line on the stress-test.sh script:<br>
