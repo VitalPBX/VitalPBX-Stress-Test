@@ -357,7 +357,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 			if [ "$call_step" -lt $x ] ;then
 				exitstep=true
 			fi
-			asterisk -rx"channel originate Local/200@call-test-ext application Playback demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct&demo-instruct"
+                        asterisk -rx"channel originate Local/200@call-test-ext extension 100@call-test-trk"
 			sleep "$slepcall"
 		done
 		let step=step+1
