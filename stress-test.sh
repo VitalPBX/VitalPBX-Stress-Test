@@ -203,7 +203,7 @@ echo -e "************************************************************"
 
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " same => Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e " same => n, Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
         if [ "$cdrs" != yes ] ;then
 		echo -e " same => n,NoCDR()" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
@@ -214,7 +214,7 @@ echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-ca
 echo -e " " 						                	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "[call-test-trk]" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => 100,1,Answer()" 						>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e "same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e " same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
 protocol_name=PJSIP
