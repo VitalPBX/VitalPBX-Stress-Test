@@ -203,211 +203,96 @@ echo -e "************************************************************"
 
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-	if [ "$cdrs" != yes ] ;then
+echo -e " same => Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+        if [ "$cdrs" != yes ] ;then
 		echo -e " same => n,NoCDR()" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 	if [ "$recording" = yes ] ;then
 		echo -e " same => n,MixMonitor(/tmp/$"{UNIQUEID}".wav,ab)" 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
-	if [ "$protocol" = 1 ] ;then
-		echo -e " same => n,Dial(SIP/call-test-trk/100,30,rtT)" 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-	fi
-	if [ "$protocol" = 2 ] ;then
-		echo -e " same => n,Dial(IAX2/call-test-trk/100,30,rtT)"	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-	fi
-	if [ "$protocol" = 3 ] ;then
-		echo -e " same => n,Dial(PJSIP/100@call-test-trk)"		>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-	fi
+echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e " " 						                	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e "[call-test-trk]" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e "exten => 100,1,Answer()" 						>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e "same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
-	if [ "$protocol" = 1 ] ;then
-		protocol_name=SIP
-		rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		rm -rf /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "[call-test-trk]" 					> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "description=Call_Test" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "host=$ip_remote" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "port=5062" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "type=friend" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "transport=udp" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "qualify=yes" 						>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "outbound_registration=yes" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "auth_rejection_permanent=yes" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "max_retries=10" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "expiration=3600" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "retry_interval=60" 					>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		echo -e "forbidden_retry_interval=10" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		codec_name=NONE
-		if [ "$codec" = 2 ] ;then
-			codec_name=g729
-			echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		fi
-		if [ "$codec" = 3 ] ;then
-			codec_name=gsm
-			echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		fi
-	fi
-
-	if [ "$protocol" = 2 ] ;then
-		protocol_name=IAX
-		rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		rm -rf /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "[call-test-trk]" 					> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "description=Call_Test" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "host=$ip_remote" 					>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "type=friend" 						>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "transport=udp" 					>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "qualify=yes" 						>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "outbound_registration=yes" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "auth_rejection_permanent=yes" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "max_retries=10" 					>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "expiration=3600" 					>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "retry_interval=60" 					>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "forbidden_retry_interval=10" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		codec_name=NONE
-		if [ "$codec" = 2 ] ;then
-			codec_name=g729
-			echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		fi
-		if [ "$codec" = 3 ] ;then
-			codec_name=gsm
-			echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		fi
-	fi
-
-	if [ "$protocol" = 3 ] ;then
-		protocol_name=PJSIP
-		rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf
-		rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf
-		echo -e "[call-test-trk](p1)" 					> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		if [ "$codec" = 1 ] ;then
-			codec_name=NONE
-			echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		fi		
-		if [ "$codec" = 2 ] ;then
-			codec_name=g729
-			echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		fi
-		if [ "$codec" = 3 ] ;then
-			codec_name=gsm
-			echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		fi
-		echo -e "language=en" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "aors=call-test-trk" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "trust_id_inbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "trust_id_outbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "[call-test-trk](p1-aor)" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "type=aor" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "max_contacts=2" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "contact=sip:call-test-trk@$ip_remote:5060"		>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "qualify_frequency=30" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "qualify_timeout=3" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "[call-test-trk]" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "type=identify" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "endpoint=call-test-trk" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-		echo -e "match=@$ip_remote" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
-	fi
+protocol_name=PJSIP
+echo -e "[call-test-trk](p1)" 					> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+if [ "$codec" = 1 ] ;then
+	codec_name=NONE
+	echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+fi		
+if [ "$codec" = 2 ] ;then
+	codec_name=g729
+	echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+fi
+if [ "$codec" = 3 ] ;then
+	codec_name=gsm
+	echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+fi
+echo -e "language=en" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "aors=call-test-trk" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "trust_id_inbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "trust_id_outbound=no" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "[call-test-trk](p1-aor)" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "type=aor" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "max_contacts=2" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "contact=sip:call-test-trk@$ip_remote:5060"		>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "qualify_frequency=30" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "qualify_timeout=3" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "" 							>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "[call-test-trk]" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "type=identify" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "endpoint=call-test-trk" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+echo -e "match=@$ip_remote" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 	
 ssh -p $ssh_remote_port root@$ip_remote "echo -e '[call-test-ext]' 					> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e 'exten => _100,1,Answer()' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,NoCDR()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n(begin),Wait(1)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Playback(demo-instruct&silence/10)'    	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,MusicOnHold(default)'               	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Goto(begin)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-
-	if [ "$protocol" = 1 ] ;then
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'host=$ip_local' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'port=5062' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=friend' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'transport=udp' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify=yes' 				>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'outbound_registration=yes' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'auth_rejection_permanent=yes'		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'max_retries=10' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'expiration=3600' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'retry_interval=60' 			>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'forbidden_retry_interval=10' 		>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		if [ "$codec" = 2 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,g729' 	>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		fi
-		if [ "$codec" = 3 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,gsm' 	>> /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		fi
-	fi
-
-	if [ "$protocol" = 2 ] ;then
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk]' 			> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext' 		>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'description=Call_Test' 		>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'host=$ip_local' 			>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=friend' 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'transport=udp' 			>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify=yes' 				>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'outbound_registration=yes' 		>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'auth_rejection_permanent=yes'		>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'max_retries=10' 			>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'expiration=3600' 			>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'retry_interval=60' 			>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'forbidden_retry_interval=10' 		>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		if [ "$codec" = 2 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,g729' 	>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		fi
-		if [ "$codec" = 3 ] ;then
-			ssh -p $ssh_remote_port root@$ip_remote "		echo -e 'allow=!all,gsm' 	>> /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		fi
-	fi
 	
-	if [ "$protocol" = 3 ] ;then
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk](p1)'				> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=endpoint'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'dtmf_mode=rfc4733' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		if [ "$codec" = 1 ] ;then
-			codec_name=NONE
-			ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,ulaw,alaw' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		fi		
-		if [ "$codec" = 2 ] ;then
-			codec_name=g729
-			ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,g729' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		fi
-		if [ "$codec" = 3 ] ;then
-			codec_name=gsm
-			ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,gsm' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		fi
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'language=en'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'aors=call-test-trk'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'trust_id_inbound=no'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'trust_id_outbound=no' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e ''						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk](p1-aor)' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=aor'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'max_contacts=2'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'contact=sip:call-test-trk@$ip_local:5060'	>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify_frequency=30' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify_timeout=3' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '' 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk]'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=identify' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'endpoint=call-test-trk' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-		ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'match=$ip_local' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
-	fi
+ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/iax__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk](p1)'				> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=endpoint'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'dtmf_mode=rfc4733' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+if [ "$codec" = 1 ] ;then
+	codec_name=NONE
+	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,ulaw,alaw' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+fi		
+if [ "$codec" = 2 ] ;then
+	codec_name=g729
+	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,g729' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+fi
+if [ "$codec" = 3 ] ;then
+	codec_name=gsm
+	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,gsm' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+fi
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'language=en'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'aors=call-test-trk'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'trust_id_inbound=no'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'trust_id_outbound=no' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e ''						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk](p1-aor)' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=aor'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'max_contacts=2'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'contact=sip:call-test-trk@$ip_local:5060'	>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify_frequency=30' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'qualify_timeout=3' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e '' 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e '[call-test-trk]'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=identify' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'endpoint=call-test-trk' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'match=$ip_local' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 
 systemctl restart asterisk
 ssh -p $ssh_remote_port root@$ip_remote "systemctl restart asterisk"
