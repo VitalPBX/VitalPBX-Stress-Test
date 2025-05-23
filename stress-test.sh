@@ -205,21 +205,18 @@ wget -O /var/lib/asterisk/sounds/en/sarah.wav  https://github.com/VitalPBX/Vital
 
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " same => n, Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-	if [ "$cdrs" != yes ] ;then
+echo -e " same => Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+        if [ "$cdrs" != yes ] ;then
 		echo -e " same => n,NoCDR()" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 	if [ "$recording" = yes ] ;then
 		echo -e " same => n,MixMonitor(/tmp/$"{UNIQUEID}".wav,ab)" 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
-echo -e " same => n(begin),Wait(1)"                                             >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " same => n,Playback(sarah)"                                            >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " same => n,Goto(begin)"                                                >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " " 						                	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "[call-test-trk]" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => 100,1,Answer()" 						>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+echo -e "same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
 protocol_name=PJSIP
@@ -364,7 +361,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 			if [ "$call_step" -lt $x ] ;then
 				exitstep=true
 			fi
-                        asterisk -rx"channel originate Local/200@call-test-ext extension 100@call-test-trk"
+			asterisk -rx"channel originate Local/200@call-test-ext application Playback sarah&sarah&sarah"
 			sleep "$slepcall"
 		done
 		let step=step+1
@@ -375,7 +372,6 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 		R1=`cat /sys/class/net/"$interface_name"/statistics/rx_bytes`
 		T1=`cat /sys/class/net/"$interface_name"/statistics/tx_bytes`
 		date1=$(date +"%s")
-#		sleep "$call_step_seconds"
 		sleep 1
 	done
 echo -e "\e[39m ------------------------------------------------------------------------------------------------"
