@@ -206,17 +206,14 @@ wget -O /var/lib/asterisk/sounds/en/sarah.wav  https://github.com/VitalPBX/Vital
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-        if [ "$cdrs" != yes ] ;then
+	if [ "$cdrs" != yes ] ;then
 		echo -e " same => n,NoCDR()" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
 	if [ "$recording" = yes ] ;then
 		echo -e " same => n,MixMonitor(/tmp/$"{UNIQUEID}".wav,ab)" 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 	fi
-echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e " " 						                	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e "[call-test-trk]" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e "exten => 100,1,Answer()" 						>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
-echo -e "same => n,Dial(PJSIP/100@call-test-trk,30,rtT)" 			>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
+
+echo -e " same => n,Dial(PJSIP/100@call-test-trk)"		                >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
 protocol_name=PJSIP
@@ -258,9 +255,8 @@ ssh -p $ssh_remote_port root@$ip_remote "wget -O /var/lib/asterisk/sounds/en/jon
 ssh -p $ssh_remote_port root@$ip_remote "echo -e '[call-test-ext]' 					> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e 'exten => _100,1,Answer()' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,NoCDR()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n(begin),Wait(1)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Playback(jonathan)'                 	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Goto(begin)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Wait(1)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Playback(jonathan&jonathan&jonathan)'     	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 	
 ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
