@@ -30,22 +30,22 @@ filename="config.txt"
 					interface_name=$line
   				;;
 				5)
-					protocol=$line
-  				;;
-				6)
 					codec=$line
   				;;
-				7)
+				6)
 					recording=$line
   				;;
-				8)
+				7)
 					maxcpuload=$line
   				;;
-				9)
+				8)
 					call_step=$line
   				;;
-				10)
+				9)
 					call_step_seconds=$line
+  				;;
+      				10)
+					call_duration=$line
   				;;
 			esac
 			n=$((n+1))
@@ -54,12 +54,12 @@ filename="config.txt"
 		echo -e "IP Remote...................................... >  $ip_remote"
 		echo -e "SSH Remote Port (Default is 22)................ >  $ssh_remote_port"
 		echo -e "Network Interface name (ej: eth0).............. >  $interface_name"
-		echo -e "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ >  $protocol"
-		echo -e "Codec (1.-None, 2.-G79, 3.- GSM)............... >  $codec"
+		echo -e "Codec (1.-PCMU, 2.-G729, 3.- GSM).............. >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
 		echo -e "Max CPU Load (Recommended 75%)................. >  $maxcpuload"
 		echo -e "Calls Step (Recommended 5-100)................. >  $call_step"
 		echo -e "Seconds between each step (Recommended 5-30)... >  $call_step_seconds"
+  		echo -e "Estimated Call Duration Seconds (ej: 180)...... >  $call_duration"
 	fi
 	
 	while [[ $ip_local == '' ]]
@@ -82,12 +82,7 @@ filename="config.txt"
     		read -p "Network Interface name (ej: eth0).............. > " interface_name 
 	done
 
-	while [[ $protocol == '' ]]
-	do
-    		read -p "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP)............ > " protocol 
-	done
-
-	while [[ $codec == '' ]]
+        while [[ $codec == '' ]]
 	do
     		read -p "Codec (1.-None, 2.-G79, 3.- GSM)............... > " codec 
 	done 
@@ -111,7 +106,12 @@ filename="config.txt"
 	do
     		read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
 	done 
-
+ 
+        while [[ $call_duration == '' ]]
+	do
+    		read -p "Estimated Call Duration Seconds (ej: 180)...... > " call_duration
+	done 
+ 
 echo -e "************************************************************"
 echo -e "*                   Check Information                      *"
 echo -e "*        Make sure that both server have communication     *"
@@ -145,11 +145,6 @@ echo -e "************************************************************"
 		do
     			read -p "Network Interface name (ej: eth0).............. > " interface_name 
 		done
-		
-		while [[ $protocol == '' ]]
-		do
-    			read -p "Protocol (1.-SIP, 2.-IAX, 3.-PJSIP............. > " protocol 
-		done
 
 		while [[ $codec == '' ]]
 		do
@@ -175,33 +170,63 @@ echo -e "************************************************************"
 		do
     			read -p "Seconds between each step (Recommended 5-30)... > " call_step_seconds
 		done 
+  
+		while [[ $call_duration == '' ]]
+		do
+    			read -p "Estimated Call Duration Seconds (ej: 180)...... > " call_duration
+		done 
 	fi
 
 echo -e "$ip_local" 		> config.txt
 echo -e "$ip_remote" 		>> config.txt
 echo -e "$ssh_remote_port"	>> config.txt
 echo -e "$interface_name" 	>> config.txt
-echo -e "$protocol" 		>> config.txt
 echo -e "$codec" 		>> config.txt
 echo -e "$recording" 		>> config.txt
 echo -e "$maxcpuload"     	>> config.txt
 echo -e "$call_step" 		>> config.txt
 echo -e "$call_step_seconds" 	>> config.txt
+echo -e "$call_duration" 	>> config.txt
 echo -e "************************************************************"
 echo -e "*          Copy Authorization key to remote server         *"
 echo -e "************************************************************"
-sshKeyFile=/root/.ssh/id_rsa
-	if [ ! -f $sshKeyFile ]; then
-		ssh-keygen -f /root/.ssh/id_rsa -t rsa -N '' >/dev/null
-	fi
-ssh-copy-id -p $ssh_remote_port root@$ip_remote
-echo -e "*** Done ***"
+sshKeyFile="/root/.ssh/id_rsa"
+
+if [ ! -f "$sshKeyFile" ]; then
+    echo -e "Generating SSH key..."
+    ssh-keygen -f "$sshKeyFile" -t rsa -N '' >/dev/null
+fi
+
+echo -e "Copying public key to $ip_remote..."
+ssh-copy-id -i "${sshKeyFile}.pub" -p "$ssh_remote_port" root@$ip_remote
+
+if [ $? -eq 0 ]; then
+    echo -e "*** SSH key installed successfully. ***"
+else
+    echo -e "❌ Failed to copy SSH key. You might need to check connectivity or credentials."
+    exit 1
+fi
+
+case "$codec" in
+  1)
+    codec_name="PCMU"
+    ;;
+  2)
+    codec_name="G729"
+    ;;
+  3)
+    codec_name="opus"
+    ;;
+  *)
+    codec_name="PCMU"
+    ;;
+esac
 
 echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
 
-wget -O /var/lib/asterisk/sounds/en/sarah.wav  https://github.com/VitalPBX/VitalPBX-Stress-Test/raw/refs/heads/master/sarah.wav
+wget -O /var/lib/asterisk/sounds/en/jonathan.wav  https://github.com/VitalPBX/VitalPBX-Stress-Test/raw/refs/heads/master/jonathan.wav
 
 echo -e "[call-test-ext]" 							> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e "exten => _200,1,NoOp(Outgoing Call)" 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
@@ -216,7 +241,6 @@ echo -e " same => Answer()" 						        >> /etc/asterisk/vitalpbx/extensions__
 echo -e " same => n,Dial(PJSIP/100@call-test-trk)"		                >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 echo -e " same => n,Hangup()" 							>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf
 
-protocol_name=PJSIP
 echo -e "[call-test-trk](p1)" 					> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
@@ -250,13 +274,13 @@ echo -e "type=identify" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "endpoint=call-test-trk" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "match=@$ip_remote" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 
-ssh -p $ssh_remote_port root@$ip_remote "wget -O /var/lib/asterisk/sounds/en/jonathan.wav https://github.com/VitalPBX/VitalPBX-Stress-Test/raw/refs/heads/master/jonathan.wav"
+ssh -p $ssh_remote_port root@$ip_remote "wget -O /var/lib/asterisk/sounds/en/sarah.wav https://github.com/VitalPBX/VitalPBX-Stress-Test/raw/refs/heads/master/sarah.wav"
 
 ssh -p $ssh_remote_port root@$ip_remote "echo -e '[call-test-ext]' 					> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e 'exten => _100,1,Answer()' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,NoCDR()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Wait(1)' 				>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
-ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Playback(jonathan&jonathan&jonathan)'     	>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Wait(1)' 				        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
+ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Playback(sarah&sarah&sarah)'     	        >> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "echo -e ' same => n,Hangup()' 					>> /etc/asterisk/vitalpbx/extensions__60-call-test.conf"
 	
 ssh -p $ssh_remote_port root@$ip_remote "rm -rf /etc/asterisk/vitalpbx/sip__60-call-test.conf"
@@ -307,7 +331,7 @@ i=0
 step=0
 clear
 echo -e " ***************************************************************************************************"
-echo -e "     Actual Test State (Step: "$call_step_seconds"s, Core: "$numcores", Protocol: "$protocol_name", Codec: "$codec_name", Recording: "$recording")     "
+echo -e "     Actual Test State (Step: "$call_step_seconds"s, Core: "$numcores", Protocol: SIP(PJSIP), Codec: "$codec_name", Recording: "$recording")     "
 echo -e " ***************************************************************************************************"
 echo -e " ---------------------------------------------------------------------------------------------------"
 printf "%2s %7s %10s %19s %10s %10s %10s %12s %12s\n" "|" " Step |" "Calls |" "Asterisk Channels |" "CPU Load |" "Load |" "Memory |" "BW TX kb/s |" "BW RX kb/s |"
@@ -357,7 +381,7 @@ echo -e "calls, active calls, cpu load (%), memory (%), bwtx (kb/s), bwrx(kb/s),
 			if [ "$call_step" -lt $x ] ;then
 				exitstep=true
 			fi
-			asterisk -rx"channel originate Local/200@call-test-ext application Playback sarah&sarah&sarah"
+			asterisk -rx"channel originate Local/200@call-test-ext application Playback jonathan&jonathan&jonathan"
 			sleep "$slepcall"
 		done
 		let step=step+1
@@ -378,6 +402,52 @@ rm -rf /etc/asterisk/vitalpbx/asterisk__60-max-load.conf
 systemctl restart asterisk
 ssh -p $ssh_remote_port root@$ip_remote "systemctl restart asterisk"
 rm -rf /tmp/*.wav
+
+echo -e " ***************************************************************************************************"
+echo -e " *                                     Summary Report                                              *"
+echo -e " ***************************************************************************************************"
+echo -e "\n\033[1;34mGenerating summary from data.csv...\033[0m"
+
+if [ -f data.csv ]; then
+    tail -n +2 data.csv | awk -F',' -v dur="$call_duration" '
+    BEGIN {
+        max_cpu=0; sum_cpu=0; count=0;
+        max_calls=0; sum_calls=0;
+        sum_bw_per_call=0;
+    }
+    {
+        cpu = $3 + 0;
+        calls = $2 + 0;
+        tx = $5 + 0;
+        rx = $6 + 0;
+        bw_per_call = (calls > 0) ? (tx + rx) / calls : 0;
+
+        if(cpu > max_cpu) max_cpu = cpu;
+        if(calls > max_calls) max_calls = calls;
+
+        sum_cpu += cpu;
+        sum_calls += calls;
+        sum_bw_per_call += bw_per_call;
+        count++;
+    }
+    END {
+        avg_cpu = (count > 0) ? sum_cpu / count : 0;
+        avg_calls = (count > 0) ? sum_calls / count : 0;
+        avg_bw = (count > 0) ? sum_bw_per_call / count : 0;
+        est_calls_per_hour = (dur > 0) ? max_calls * (3600 / dur) : 0;
+
+        printf("\n📊 Summary:\n");
+        printf("• Max CPU Usage.......: %.2f%%\n", max_cpu);
+        printf("• Average CPU Usage...: %.2f%%\n", avg_cpu);
+        printf("• Max Concurrent Calls: %d\n", max_calls);
+        printf("• Average Calls/Step..: %.2f\n", avg_calls);
+        printf("• Average BW/Call.....: %.2f kb/s\n", avg_bw);
+        printf("• ➕ Estimated Calls/hour (duration ~%ds): %.0f\n\n", dur, est_calls_per_hour);
+    }'
+else
+    echo "data.csv not found."
+fi
+
 echo -e " ***************************************************************************************************"
 echo -e " *                                       Test Complete                                             *"
 echo -e " *                                  Result in data.csv file                                        *"
