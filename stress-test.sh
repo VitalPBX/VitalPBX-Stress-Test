@@ -54,7 +54,7 @@ filename="config.txt"
 		echo -e "IP Remote...................................... >  $ip_remote"
 		echo -e "SSH Remote Port (Default is 22)................ >  $ssh_remote_port"
 		echo -e "Network Interface name (ej: eth0).............. >  $interface_name"
-		echo -e "Codec (1.-PCMU, 2.-G729, 3.- GSM).............. >  $codec"
+		echo -e "Codec (1.-PCMU, 2.-G729, 3.-OPUS).............. >  $codec"
 		echo -e "Recording Calls (yes,no)....................... >  $recording"
 		echo -e "Max CPU Load (Recommended 75%)................. >  $maxcpuload"
 		echo -e "Calls Step (Recommended 5-100)................. >  $call_step"
@@ -84,7 +84,7 @@ filename="config.txt"
 
         while [[ $codec == '' ]]
 	do
-    		read -p "Codec (1.-None, 2.-G79, 3.- GSM)............... > " codec 
+    		read -p "Codec (1.-PCMU, 2.-G729, 3.-OPUS).............. > " codec 
 	done 
 
 	while [[ $recording == '' ]]
@@ -148,7 +148,7 @@ echo -e "************************************************************"
 
 		while [[ $codec == '' ]]
 		do
-    			read -p "Codec (1.-None, 2.-G79, 3.- GSM................ > " codec 
+    			read -p "Codec (1.-PCMU, 2.-G729, 3.-OPUS............... > " codec 
 		done 
 
 		while [[ $recording == '' ]]
@@ -207,21 +207,6 @@ else
     exit 1
 fi
 
-case "$codec" in
-  1)
-    codec_name="PCMU"
-    ;;
-  2)
-    codec_name="G729"
-    ;;
-  3)
-    codec_name="opus"
-    ;;
-  *)
-    codec_name="PCMU"
-    ;;
-esac
-
 echo -e "************************************************************"
 echo -e "*            Creating Asterisk config files                *"
 echo -e "************************************************************"
@@ -246,16 +231,16 @@ echo -e "type=endpoint" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "dtmf_mode=rfc4733" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "context=call-test-ext" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 if [ "$codec" = 1 ] ;then
-	codec_name=NONE
+	codec_name=PCMU
 	echo -e "allow=!all,ulaw,alaw" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 fi		
 if [ "$codec" = 2 ] ;then
-	codec_name=g729
+	codec_name=G729
 	echo -e "allow=!all,g729" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 fi
 if [ "$codec" = 3 ] ;then
-	codec_name=gsm
-	echo -e "allow=!all,gsm" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
+	codec_name=OPUS
+	echo -e "allow=!all,opus" 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 fi
 echo -e "language=en" 						>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
 echo -e "aors=call-test-trk" 					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf
@@ -290,16 +275,16 @@ ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'type=endpoint'					>> /etc/as
 ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'dtmf_mode=rfc4733' 				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'context=call-test-ext'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 if [ "$codec" = 1 ] ;then
-	codec_name=NONE
+	codec_name=PCMU
 	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,ulaw,alaw' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 fi		
 if [ "$codec" = 2 ] ;then
-	codec_name=g729
+	codec_name=G729
 	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,g729' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 fi
 if [ "$codec" = 3 ] ;then
-	codec_name=gsm
-	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,gsm' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
+	codec_name=OPUS
+	ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'allow=!all,opus' 			>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 fi
 ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'language=en'					>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
 ssh -p $ssh_remote_port root@$ip_remote "	echo -e 'aors=call-test-trk'				>> /etc/asterisk/vitalpbx/pjsip__60-call-test.conf"
