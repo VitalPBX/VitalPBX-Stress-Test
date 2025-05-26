@@ -18,7 +18,6 @@ To do this test it is necessary to have two VitalPBX servers installed, the serv
 ## Script VitalPBX V3 and V4
 Next, copy and run the following script on the server you wish to stress test<br>
 ```
-cd /
 wget https://raw.githubusercontent.com/VitalPBX/VitalPBX-Stress-Test/master/stress-test.sh
 chmod +x stress-test.sh
 ./stress-test.sh
